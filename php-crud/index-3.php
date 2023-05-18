@@ -39,11 +39,14 @@
 <body style="background-image: url('./KSP.jpg');">
     <div class="container my-4">
         <header class="d-flex justify-content-between my-4">
-            <h1>product List</h1>
+            <h1>Product List</h1>
             <div>
                 <a href="create.php" class="btn btn-primary" style="font-weight:bold;border:4px solid black;">Add New
                     Product</a>
-
+                <a href="signuppage.php" class="btn btn-info"
+                    style="font-weight:bold;border:4px solid black;color:white;">Signup</a>
+                <a href="login.php" class="btn btn-info"
+                    style="font-weight:bold;border:4px solid black;color:white;">Login</a>
             </div>
         </header>
         <?php
@@ -99,20 +102,25 @@
 
                 <?php
         include('connect-2.php');
-        $sqlSelect = "SELECT * FROM category";
-        $result = mysqli_query($conn,$sqlSelect);
+        $limit = 10; // Number of records to display per page
+        $page = isset($_GET['page']) ? $_GET['page'] : 1; // Get the current page number from the URL
+        $start = ($page - 1) * $limit; // Calculate the starting position for the records
+        
+        $sqlCount = "SELECT COUNT(*) AS total FROM category";
+        $resultCount = mysqli_query($conn, $sqlCount);
+        $dataCount = mysqli_fetch_assoc($resultCount);
+        $totalPages = ceil($dataCount['total'] / $limit); // Calculate the total number of pages
+        
+        $sqlSelect = "SELECT * FROM category LIMIT $start, $limit";
+        $result = mysqli_query($conn, $sqlSelect);
+        
         while($data = mysqli_fetch_array($result)){
             ?>
                 <tr>
                     <td style="font-weight:bold;"><?php echo $data['id']; ?></td>
-
                     <td style="font-weight:bold;"><?php echo $data['type']; ?></td>
-
                     <td><img width="100" src="<?php echo $data['image']; ?>" alt=""></td>
-
                     <td style="font-weight:bold;"><?php echo $data['description']; ?></td>
-
-
                     <td style="font-weight:bold;">
                         <a href="view-2.php?id=<?php echo $data['id']; ?>" class="btn btn-info"
                             style="font-weight:bold;border:4px solid black;color:white;">Read More</a>
@@ -127,6 +135,24 @@
         ?>
             </tbody>
         </table>
+
+        <!-- Pagination -->
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <?php if ($page > 1): ?>
+                <li class="page-item"><a class="page-link" href="?page=<?php echo ($page-1); ?>">Previous</a></li>
+                <?php endif; ?>
+
+                <?php for($i = 1; $i <= $totalPages; $i++): ?>
+                <li class="page-item <?php if ($i == $page) echo 'active'; ?>"><a class="page-link"
+                        href="?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                <?php endfor; ?>
+
+                <?php if ($page < $totalPages): ?>
+                <li class="page-item"><a class="page-link" href="?page=<?php echo ($page+1); ?>">Next</a></li>
+                <?php endif; ?>
+            </ul>
+        </nav>
     </div>
 </body>
 
