@@ -33,6 +33,53 @@
     svg {
         transform: rotate(60deg);
     }
+
+
+    .sweet-alert-container {
+        width: 400px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        padding: 20px;
+        margin: 0 auto;
+        /* Center horizontally */
+        margin-top: 20vh;
+        /* Center vertically */
+    }
+
+    .sweet-alert-container .confirm-button,
+    .sweet-alert-container .cancel-button {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .sweet-alert-container .confirm-button {
+        background-color: #3f51b5;
+        color: #fff;
+    }
+
+    .sweet-alert-container .confirm-button:hover {
+        background-color: #2c387e;
+    }
+
+    .sweet-alert-container .cancel-button {
+        background-color: #e0e0e0;
+        color: #333;
+    }
+
+    .sweet-alert-container .cancel-button:hover {
+        background-color: #bdbdbd;
+    }
+
+    .sweet-alert-container .confirm-button-text,
+    .sweet-alert-container .cancel-button-text {
+        font-weight: bold;
+    }
     </style>
 </head>
 
@@ -124,10 +171,77 @@
                     <td style="font-weight:bold;">
                         <a href="view-2.php?id=<?php echo $data['id']; ?>" class="btn btn-info"
                             style="font-weight:bold;border:4px solid black;color:white;">Read More</a>
-                        <a href="edit.php?id=<?php echo $data['id']; ?>" class="btn btn-success"
+                        <a href="edit.php?id=<?php echo $data['id']; ?>" class="btn btn-success edit-button"
                             style="font-weight:bold;border:4px solid black;">Edit</a>
-                        <a href="delete.php?id=<?php echo $data['id']; ?>" class="btn btn-danger"
+
+                        <script>
+                        // Add a click event listener to the edit buttons
+                        const editButtons = document.querySelectorAll('.edit-button');
+                        editButtons.forEach(button => {
+                            button.addEventListener('click', (event) => {
+                                event.preventDefault(); // Prevent the default click behavior
+
+                                const editUrl = button.getAttribute('href'); // Get the edit URL
+
+                                // Show the SweetAlert confirmation dialog
+                                Swal.fire({
+                                    title: 'Are you sure?',
+                                    text: 'You are about to edit the category',
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonText: '<span class="confirm-button-text">Yes, edit it!</span>',
+                                    cancelButtonText: '<span class="cancel-button-text">Cancel</span>',
+                                    customClass: {
+                                        container: 'sweet-alert-container', // Add a custom class to the container
+                                        confirmButton: 'confirm-button', // Add a custom class to the confirm button
+                                        cancelButton: 'cancel-button' // Add a custom class to the cancel button
+                                    }
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        // If the user confirms, proceed with the edit
+                                        window.location.href = editUrl;
+                                    }
+                                });
+                            });
+                        });
+                        </script>
+
+                        <a href="delete.php?id=<?php echo $data['id']; ?>" class="btn btn-danger delete-button"
                             style="font-weight:bold;border:4px solid black;">Delete</a>
+
+                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.js"></script>
+                        <script>
+                        // Add a click event listener to the delete buttons
+                        const deleteButtons = document.querySelectorAll('.delete-button');
+                        deleteButtons.forEach(button => {
+                            button.addEventListener('click', (event) => {
+                                event.preventDefault(); // Prevent the default click behavior
+
+                                const deleteUrl = button.getAttribute('href'); // Get the delete URL
+
+                                // Show the SweetAlert confirmation dialog
+                                Swal.fire({
+                                    title: 'Are you sure?',
+                                    text: 'You are about to delete the category',
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonText: '<span class="confirm-button-text">Yes, delete it!</span>',
+                                    cancelButtonText: '<span class="cancel-button-text">Cancel</span>',
+                                    customClass: {
+                                        container: 'sweet-alert-container',
+                                        confirmButton: 'confirm-button', // Add a custom class to the confirm button
+                                        cancelButton: 'cancel-button'
+                                    }
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        // If the user confirms, proceed with the deletion
+                                        window.location.href = deleteUrl;
+                                    }
+                                });
+                            });
+                        });
+                        </script>
+
                     </td>
                 </tr>
                 <?php
