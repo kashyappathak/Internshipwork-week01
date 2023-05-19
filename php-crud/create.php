@@ -14,7 +14,7 @@
     <style>
     body {
         background-size: cover;
-        animation: pan 6s infinite alternate linear;
+        animation: pan 5s infinite alternate linear;
         height: 100vh;
     }
 
@@ -69,7 +69,7 @@
                     <option value="Grocery">Grocery</option>
                     <option value="Vegetables">Vegetables</option>
                     <option value="Cold-drinks">Cold-drinks</option>
-                    <option value="Laptop And tablet">Laptops</option>
+                    <option value="Laptops">Laptops</option>
                     <option value="Mobile Accesories">Mobile accsories</option>
                     <option value="Elctronicas item  ">Electronicas item</option>
                     <option value="T-shirt">T-shirt</option>
@@ -87,6 +87,7 @@
                 <input type="submit" name="create" value="Add Category" class="btn btn-success"
                     style="font-weight:bold;border:4px solid black;" required>
             </div>
+            <input type="submit" name="export" value="Export to Excel">
         </form>
 
 
@@ -142,4 +143,4 @@
     </script>
 </body>
 
-</html
+</html>
