@@ -86,8 +86,10 @@
             <div class="form-element my-4">
                 <input type="submit" name="create" value="Add Category" class="btn btn-success"
                     style="font-weight:bold;border:4px solid black;" required>
+                <input type="submit" class="btn btn-success" style="border:4px solid black;font-weight:bold;"
+                    name="export" value="Export to Excel">
             </div>
-            <input type="submit" name="export" value="Export to Excel">
+
         </form>
 
 
