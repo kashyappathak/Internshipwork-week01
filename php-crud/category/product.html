@@ -1,0 +1,54 @@
+<head>
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input,
+        textarea {
+            margin: 10px 0;
+            padding: 5px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            margin: 10px 0;
+            padding: 5px 20px;
+            background-color: #f10e93;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #008f2b;
+        }
+
+        body {
+            background-color: #008CBA;
+        }
+    </style>
+    <script src="./product.js"></script>
+</head>
+
+<body>
+    <form method="post" action="insert_product.php" enctype="multipart/form-data">
+        <label>product_name:</label>
+        <input type="text" name="product_name" placeholder="Product Name" required><br>
+        <label>product_price</label>
+        <input type="number" name="product_price" placeholder="Product Price" required><br>
+        <label>Image:</label>
+        <input type="file" name="product_image" required><br>
+        <textarea name="product_description" placeholder="Product Description" required></textarea>
+        <button type="submit">Submit</button>
+    </form>
+
+
+
+
+</body>
